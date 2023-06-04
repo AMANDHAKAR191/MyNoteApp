@@ -9,15 +9,13 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Sort
-import androidx.compose.material3.ColorScheme
+import androidx.compose.material3.DrawerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonColors
 import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.Scaffold
@@ -26,15 +24,11 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -56,6 +50,7 @@ fun NotesScreen(
     val state = viewModel.state.value
 //    val scaffoldState = rememberScaffoldState()
     val snackBarHostState = remember { SnackbarHostState() }
+    val drawerHostState = remember { DrawerState }
     val scope = rememberCoroutineScope()
     val currentContext = LocalContext.current
 
@@ -72,20 +67,22 @@ fun NotesScreen(
     Scaffold(
         snackbarHost = { SnackbarHost(snackBarHostState) },
         topBar = {
-            MediumTopAppBar(title = { Text(text = "My Note") }, actions = {
-                IconButton(
-                    onClick = {
-                        viewModel.onEvent(NotesEvent.ToggleOrderSection)
-                    }, colors = IconButtonDefaults.iconButtonColors()
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Sort,
-                        contentDescription = "Sort"
-                    )
-                }
-            },
-            scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(),
-            colors = TopAppBarDefaults.mediumTopAppBarColors()
+            MediumTopAppBar(
+                title = { Text(text = "My Note") },
+                actions = {
+                    IconButton(
+                        onClick = {
+                            viewModel.onEvent(NotesEvent.ToggleOrderSection)
+                        }, colors = IconButtonDefaults.iconButtonColors()
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Sort,
+                            contentDescription = "Sort"
+                        )
+                    }
+                },
+                scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(),
+                colors = TopAppBarDefaults.mediumTopAppBarColors()
             )
         },
         floatingActionButton = {
