@@ -15,17 +15,14 @@ class NoteRepositoryImpl(
     }
 
     override suspend fun getNoteById(id: Int): Note? {
-        println("getNoteById(): id: $id")
         return dao.getNoteById(id)
     }
 
     override suspend fun insertNote(note: Note) {
-        println("insertNote(): note: $note")
         dao.insertNote(note)
     }
 
     override suspend fun deleteNote(note: Note) {
-        println("deleteNote(): note: $note")
         dao.deleteNote(note)
     }
 }
